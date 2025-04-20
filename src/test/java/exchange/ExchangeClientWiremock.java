@@ -1,0 +1,211 @@
+package exchange;
+
+import com.github.tomakehurst.wiremock.WireMockServer;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+
+import java.util.Map;
+
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+
+public class ExchangeClientWiremock implements QuarkusTestResourceLifecycleManager {
+
+    private WireMockServer wireMockServer;
+    public final static float DKK_EXCHANGE_RATE = 0.1526f;
+
+    @Override
+    public Map<String, String> start() {
+        wireMockServer = new WireMockServer();
+        wireMockServer.start();
+
+        wireMockServer.stubFor(get(urlEqualTo("/v6/320bc8ce0649b9e5293cad7a/latest/DKK"))
+                .willReturn(aResponse()
+                        .withHeader("Content-Type", "application/json")
+                        .withBody("""
+                                {
+                                    "result": "success",
+                                    "documentation": "https://www.exchangerate-api.com/docs",
+                                    "terms_of_use": "https://www.exchangerate-api.com/terms",
+                                    "time_last_update_unix": 1745107201,
+                                    "time_last_update_utc": "Sun, 20 Apr 2025 00:00:01 +0000",
+                                    "time_next_update_unix": 1745193601,
+                                    "time_next_update_utc": "Mon, 21 Apr 2025 00:00:01 +0000",
+                                    "base_code": "DKK",
+                                    "conversion_rates": {
+                                        "DKK": 1,
+                                        "AED": 0.5603,
+                                        "AFN": 11.0042,
+                                        "ALL": 13.3128,
+                                        "AMD": 59.6167,
+                                        "ANG": 0.2731,
+                                        "AOA": 142.7520,
+                                        "ARS": 178.9360,
+                                        "AUD": 0.2393,
+                                        "AWG": 0.2731,
+                                        "AZN": 0.2590,
+                                        "BAM": 0.2622,
+                                        "BBD": 0.3051,
+                                        "BDT": 18.5404,
+                                        "BGN": 0.2622,
+                                        "BHD": 0.05737,
+                                        "BIF": 448.9218,
+                                        "BMD": 0.1526,
+                                        "BND": 0.2001,
+                                        "BOB": 1.0545,
+                                        "BRL": 0.8873,
+                                        "BSD": 0.1526,
+                                        "BTN": 13.0425,
+                                        "BWP": 2.1035,
+                                        "BYN": 0.4725,
+                                        "BZD": 0.3051,
+                                        "CAD": 0.2114,
+                                        "CDF": 441.1126,
+                                        "CHF": 0.1247,
+                                        "CLP": 147.3197,
+                                        "CNY": 1.1143,
+                                        "COP": 658.1790,
+                                        "CRC": 76.5460,
+                                        "CUP": 3.6616,
+                                        "CVE": 14.7801,
+                                        "CZK": 3.3572,
+                                        "DJF": 27.1145,
+                                        "DOP": 9.1579,
+                                        "DZD": 20.2078,
+                                        "EGP": 7.7936,
+                                        "ERN": 2.2885,
+                                        "ETB": 19.9677,
+                                        "EUR": 0.1340,
+                                        "FJD": 0.3491,
+                                        "FKP": 0.1149,
+                                        "FOK": 0.9999,
+                                        "GBP": 0.1149,
+                                        "GEL": 0.4189,
+                                        "GGP": 0.1149,
+                                        "GHS": 2.3567,
+                                        "GIP": 0.1149,
+                                        "GMD": 11.0836,
+                                        "GNF": 1324.4517,
+                                        "GTQ": 1.1740,
+                                        "GYD": 31.9822,
+                                        "HKD": 1.1840,
+                                        "HNL": 3.9511,
+                                        "HRK": 1.0099,
+                                        "HTG": 19.8885,
+                                        "HUF": 54.6914,
+                                        "IDR": 2568.4318,
+                                        "ILS": 0.5620,
+                                        "IMP": 0.1149,
+                                        "INR": 13.0215,
+                                        "IQD": 199.8203,
+                                        "IRR": 6460.7523,
+                                        "ISK": 19.4490,
+                                        "JEP": 0.1149,
+                                        "JMD": 24.1146,
+                                        "JOD": 0.1082,
+                                        "JPY": 21.7050,
+                                        "KES": 19.7794,
+                                        "KGS": 13.2887,
+                                        "KHR": 607.2460,
+                                        "KID": 0.2393,
+                                        "KMF": 65.9441,
+                                        "KRW": 216.2559,
+                                        "KWD": 0.04664,
+                                        "KYD": 0.1271,
+                                        "KZT": 79.8518,
+                                        "LAK": 3329.7681,
+                                        "LBP": 13654.8141,
+                                        "LKR": 45.5541,
+                                        "LRD": 30.4804,
+                                        "LSL": 2.8741,
+                                        "LYD": 0.8337,
+                                        "MAD": 1.4136,
+                                        "MDL": 2.6255,
+                                        "MGA": 663.2057,
+                                        "MKD": 8.2438,
+                                        "MMK": 461.7221,
+                                        "MNT": 543.5374,
+                                        "MOP": 1.2199,
+                                        "MRU": 6.0426,
+                                        "MUR": 6.8440,
+                                        "MVR": 2.3556,
+                                        "MWK": 266.1618,
+                                        "MXN": 3.0124,
+                                        "MYR": 0.6730,
+                                        "MZN": 9.7436,
+                                        "NAD": 2.8741,
+                                        "NGN": 244.7648,
+                                        "NIO": 5.6085,
+                                        "NOK": 1.6002,
+                                        "NPR": 20.8680,
+                                        "NZD": 0.2575,
+                                        "OMR": 0.05866,
+                                        "PAB": 0.1526,
+                                        "PEN": 0.5683,
+                                        "PGK": 0.6302,
+                                        "PHP": 8.6418,
+                                        "PKR": 42.8765,
+                                        "PLN": 0.5736,
+                                        "PYG": 1227.0328,
+                                        "QAR": 0.5553,
+                                        "RON": 0.6673,
+                                        "RSD": 15.7138,
+                                        "RUB": 12.5254,
+                                        "RWF": 220.4932,
+                                        "SAR": 0.5721,
+                                        "SBD": 1.2622,
+                                        "SCR": 2.1756,
+                                        "SDG": 68.1603,
+                                        "SEK": 1.4696,
+                                        "SGD": 0.2001,
+                                        "SHP": 0.1149,
+                                        "SLE": 3.4758,
+                                        "SLL": 3475.7767,
+                                        "SOS": 87.0725,
+                                        "SRD": 5.5777,
+                                        "SSP": 694.0324,
+                                        "STN": 3.2840,
+                                        "SYP": 1957.6608,
+                                        "SZL": 2.8741,
+                                        "THB": 5.0884,
+                                        "TJS": 1.6567,
+                                        "TMT": 0.5341,
+                                        "TND": 0.4558,
+                                        "TOP": 0.3645,
+                                        "TRY": 5.8193,
+                                        "TTD": 1.0750,
+                                        "TVD": 0.2393,
+                                        "TWD": 4.9547,
+                                        "TZS": 408.4424,
+                                        "UAH": 6.3078,
+                                        "UGX": 558.5704,
+                                        "USD": 0.1526,
+                                        "UYU": 6.4082,
+                                        "UZS": 1970.1837,
+                                        "VES": 12.3441,
+                                        "VND": 3961.2467,
+                                        "VUV": 18.5897,
+                                        "WST": 0.4213,
+                                        "XAF": 87.9254,
+                                        "XCD": 0.4119,
+                                        "XCG": 0.2731,
+                                        "XDR": 0.1125,
+                                        "XOF": 87.9254,
+                                        "XPF": 15.9954,
+                                        "YER": 37.3841,
+                                        "ZAR": 2.8738,
+                                        "ZMW": 4.3436,
+                                        "ZWL": 4.0815
+                                    }
+                                }
+                            """
+                        )));
+
+        return Map.of("quarkus.rest-client.\"exchange.ExchangeClient\".url", wireMockServer.baseUrl());
+    }
+
+    @Override
+    public void stop() {
+        if (null != wireMockServer) {
+            wireMockServer.stop();
+        }
+    }
+}

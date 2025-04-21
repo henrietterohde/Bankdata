@@ -44,7 +44,7 @@ class AccountResourceTest {
                 .get("/account")
                 .then()
                 .statusCode(200)
-                .body(is(String.valueOf(0)));
+                .body(is("{\"balance\":0}"));
     }
 
     @Test

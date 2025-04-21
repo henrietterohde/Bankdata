@@ -36,8 +36,8 @@ public class AccountResource {
     @Produces("application/json")
     public Response getBalance(@QueryParam("accountNumber") int accountNumber) {
         Account account = accountService.getAccount(accountNumber);
-        Long balance = account.balance();
-        return Response.ok(balance).build();
+        long balance = account.balance();
+        return Response.ok(new BalanceResponse(balance)).build();
     }
 
     @POST

@@ -2,7 +2,7 @@ package resource;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ExchangeResponse {
+class ExchangeResponse {
     @JsonProperty("DKK")
     public float amountInDkk;
 
